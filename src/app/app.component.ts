@@ -1,31 +1,32 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource, MatTableDataSourcePaginator} from '@angular/material/table';
+import { Component} from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Resource } from '../Model/resource'
+import { BookingDialogService } from '../service/booking-dialog.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent {
   title = 'booking-frontend';
   resources: Resource[] = [];
-  displayedColumns = ['id', 'name', 'button'];
-  dataSource: any;
+  displayedColumns = ['id', 'name', 'quantity', 'actions'];
+  name: string = ""
 
-  columnNames = [{
-    id: 'position',
-    value: 'Id',
+  testData: IResource[] = [ 
+    { id: 1, name: 'Course1', quantity: 5},
+    { id: 2, name: 'Course2', quantity: 2},
+    { id: 3, name: 'Course2', quantity: 3}
+  ];
+  
+ 
+  dataSource = this.testData;
 
-  }, {
-    id: 'name',
-    value: 'Name',
-  }];
+  constructor(private api: ApiService, private bookingDialogService: BookingDialogService) { }
 
-
-  constructor(private api: ApiService) { }
-
+  
   async fetchResources(): Promise<void> {
     await this.api.getResources()
       .then(res => {
@@ -35,15 +36,35 @@ export class AppComponent {
   }
 
   createTable() {
-    this.dataSource = new MatTableDataSource(this.resources);
+    //this.dataSource = new MatTableDataSource(this.resources);
+    let tableArr: IResource[] = 
+    [ 
+      { id: 1, name: 'Course1', quantity: 5},
+      { id: 2, name: 'Course2', quantity: 2},
+      { id: 3, name: 'Course2', quantity: 3}
+    ]
+    //return new MatTableDataSource(tableArr)
+
+    return tableArr
     
+  } 
+
+    //How do buttons work?
+    openDialog() {
+      console.log("Someone pressed the button")
+    }
+
+    openBookingDialog(): void {
+      this.bookingDialogService.openDialog(this.name);
+    }
   }
 
-  ngOnInit() {
-    this.createTable();
-  }
 
 
-
-
+interface IResource 
+{
+  id: number;
+  name: string;
+  quantity: number
 }
+

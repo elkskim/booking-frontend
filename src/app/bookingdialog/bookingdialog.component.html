@@ -1,0 +1,27 @@
+
+<div class="dialogwindow"> 
+
+    <mat-form-field>
+        <mat-label>Start date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>End date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <button mat-button type="button" id="cancel-save" class="btn btn-secondary" mat-dialog-close>
+    <span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button mat-button type="submit" id="save-entity" class="btn btn-primary">
+    <span jhiTranslate="entity.action.save">Save</span>
+    </button>
+</div>
